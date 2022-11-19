@@ -1,6 +1,6 @@
 Research tools for communication-efficient deep learning, developed by Muhang Lan.
 
-Latest version: 0.0.2
+Latest version: 0.0.3
 
 # Installation
 

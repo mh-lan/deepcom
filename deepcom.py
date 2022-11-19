@@ -1,7 +1,7 @@
 import numpy as np
 import torch
-from _version import __version__
 
+__version__ = '0.0.3'
 
 class SurpAlgorithm:
     def __init__(self, input_normalized, laplacian_lambda, beta):
