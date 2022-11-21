@@ -1,0 +1,19 @@
+{
+// Run "python -m deepcom config.json" in the directory where the script is located
+//
+// Format of JSON file:
+// "action":[] -> --action
+// "params_name": [params_data] -> --params_name params_data
+// Note: brackets are necesseary
+//
+// Example:
+// python script_name.py --action --key --value1
+// python script_name.py --action --key --value2
+// Then the json file should be:
+// "script": "script_name.py",
+// "action": [],
+// "key":[value1,value2]
+// Note: DO NOT revise the key "script"
+//
+"script": "test.py"
+}

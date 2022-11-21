@@ -1,6 +1,6 @@
-Research tools for communication-efficient deep learning, developed by Muhang Lan.
+Research tools for communication-efficient deep learning, developed by Muhang Lan at USTC.
 
-Latest version: 0.0.3
+Latest version: 0.1.0
 
 # Installation
 
@@ -20,6 +20,8 @@ print(dc.__version__)
 # Function list
 
 ## Basic tools
+
+- Batch processing with enumerating given argument values: ```python -m deepcom config.json```
 
 ### Deep learning perspective
 

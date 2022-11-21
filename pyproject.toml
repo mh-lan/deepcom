@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "deepcom"
-version = "0.0.3"
+version = "0.1.0"
 authors = [
   { name="Muhang Lan", email="mhlan@mail.ustc.edu.cn" },
 ]

@@ -1,7 +1,12 @@
 import numpy as np
 import torch
+import sys
+import json
+import os
+from itertools import product
 
-__version__ = '0.0.3'
+__version__ = '0.1.0'
+
 
 class SurpAlgorithm:
     def __init__(self, input_normalized, laplacian_lambda, beta):
@@ -160,3 +165,52 @@ def mutual_info(x_sequence, y_sequence):
                          x_intervals, axis=0)  # repeat each y row
     subtrahend = np.sum(xy_pdf*np.log2(x_pdf_2d*y_pdf_2d+1e-16))
     return minuend-subtrahend
+
+
+if __name__ == '__main__':
+    """
+    Batch processing with enumerating argument values, based on argparse module.
+    Learn more with configuration json file https://github.com/mh-lan/deepcom/blob/main/config.json
+    """
+    config_file_name = sys.argv[1]
+    with open(config_file_name, 'r') as config_file:
+        jsondata = ''.join(
+            line for line in config_file if not line.startswith('//'))
+        config_data = json.loads(jsondata)
+
+    script_file_name = config_data["script"]
+    config_data.pop("script")  # remain parameters only
+
+    batch_processing_info = f'Batch processing script {script_file_name} with parameters file {config_file_name}'
+    print(batch_processing_info)
+    print('-'*len(batch_processing_info))
+
+    params_key = []
+    params_possible_values = []  # for params with valus, e.g., --params_key params_value
+    params_action = []  # for params without value, e.g., --action
+    for key in config_data:
+        if config_data[key] == []:
+            params_action.append(key)
+        else:
+            params_key.append(key)
+            # collect each value for enumeration
+            params_possible_values.append(config_data[key])
+
+    command = f'python {script_file_name}'
+    for action in params_action:
+        command += f' --{action}'
+
+    if params_key == []:  # with only action parameters
+        os_command = command
+        print('-'*6+os_command+'-'*6)
+        os.system(os_command)
+    else:
+        # enumerate values for each parameter
+        for params_value in product(*params_possible_values):
+            assert len(params_key) == len(
+                params_value), 'Length of parameters and their values must be the same'
+            os_command = command
+            for index in range(len(params_key)):
+                os_command += f' --{params_key[index]} {params_value[index]}'
+            print('-'*6+os_command+'-'*6)
+            os.system(os_command)
